@@ -1,0 +1,99 @@
+---
+layout: runbook
+title: '#4471 · two date failures, not one queued fix'
+owner: Kevon Eaglin
+status: investigated
+reviewed: '2026-10-28'
+signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Review4471 from '#lib/kb/Review4471.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The [original incident](/kb/incidents/4471) merges reports under a single month-first parser explanation.
+Its own executable views distinguish two causes. This review preserves that historical page and the
+accepted decision; it does not turn their “known” status into proof that a fix shipped.
+
+<Callout kind="warn">
+Treat this as a review of the supplied export, not a live product reproduction. Its source files were
+exported on 4 October. A fresh download matched the supplied ZIP before this review; that does not
+establish that the real desk has had no later activity.
+</Callout>
+
+## Split by cause, not by the words in the subject
+
+<CauseTable ticket={4471} />
+
+### Parser: day-first input reaches a month-first shared parser
+
+The shared parser reads month first, although the tenant writes day first. For example, report
+`R-41203` describes 2 December becoming 12 February. In the supplied model this is the parser path:
+`02/12/2026` is intended as 2 December but read as 12 February.
+
+Use the tenant's date convention or an unambiguous date representation at the parser interface.
+Check both app/email traffic and the booking form whose hint already agrees with the tenant.
+A parser change alone does not correct the separate form-hint defect.
+
+### Hint: booking-v3 tells day-first tenants to enter month first
+
+The booking-v3 hint prints `MM/DD/YYYY`; its form reads the value in the tenant's day-first convention.
+A person following that hint can therefore submit the opposite date even when the form parser follows
+the locale. Report `R-41241` describes 6 August becoming 8 June: following the hint gives `08/06/2026`,
+which the German tenant's form reads as 8 June.
+
+Make the hint agree with the form's actual parsing convention. Keep this ticket separate from the
+shared parser work: form channel plus booking-v3 is the discriminator, not the browser locale.
+These examples are scenarios implied by the exported cause model, not executions of product code.
+
+<Review4471 />
+
+<QueueTimeline ticket={4471} />
+
+## The triage rule disagrees with the working comparison
+
+[Accepted decision 0001](/kb/decisions/0001-dedupe-by-subject) and the
+[triage prose](/kb/triage/dedupe) merge by normalized subject alone and say uncertainty should be merged.
+Both were last reviewed in June 2024; the shared page frame flags them as stale. The comparison below
+already uses tenant, locale, form and channel to compare causes instead.
+
+<DedupeExplorer />
+
+The concrete counterexamples matter: Alder form versus app has the same subject but different causes;
+Copper versus Morrow form traffic has the same subject/channel but different causes; Pale versus Alder
+form traffic can have different subjects yet the same hint cause. An unknown tenant has no known cause,
+so identical wording is not enough to merge it.
+
+Proposed replacement practice: resolve tenant and path, compare the demonstrated failure mechanism,
+and merge only matching causes. Keep uncertain reports for investigation. Do not silently rewrite the
+accepted historical decision; a policy owner must accept a superseding record before this recommendation
+becomes the desk's approved policy.
+
+## Desk action and verification limits
+
+- Track parser and hint separately, preserving unique report IDs and the disputed one-day wording.
+- The corresponding local issue drafts are `issues/parser.md` and `issues/hint.md`. GitHub publication
+  is pending the student's manual action; no public ticket or shipped fix is claimed here.
+- Before release acceptance, reproduce each input path in the actual product and confirm the hint,
+  parser and generated invite agree on the intended date. Recheck the one-day reports individually.
+- Refresh the desk export before submission and reconcile additions or changed tenant facts. Do not
+  carry these snapshot counts forward as a claim about a newer export.
+
+## Primary sources
+
+All file paths are relative to this KB's repository root.
+
+- `src/lib/data/reports-4471.json`: original reports, receipt timestamps, merge timestamps and IDs.
+- `src/lib/data/tenants/*.json` and `src/lib/kb/locales.ts`: tenant locale and booking-form version.
+- `src/lib/kb/causes.ts`: day-first detection, cause classification, unique-ID counting and grouping.
+- `src/lib/data/desk-notes.json`: disputed one-day wording, not a new confirmed cause.
+- `src/lib/kb/dedupe-cases.ts` and `src/lib/kb/DedupeExplorer.svelte`: executable triage contrasts.
+- `src/lib/kb/QueueTimeline.svelte`: received-versus-merged chronology.
+- `src/lib/layouts/runbook.svelte` and `src/lib/kb/staleness.ts`: review age and staleness display.
+
+<RenderStamp {signature} />
