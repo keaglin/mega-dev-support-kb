@@ -3,17 +3,32 @@ layout: runbook
 title: Support knowledge base
 owner: support desk
 status: living
-reviewed: 2026-09-28
+reviewed: '2026-10-29'
+signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import KbIndex from '#lib/kb/KbIndex.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 What the support desk knows, kept next to the code that knows it. One desk, every product:
 `sched-prod` (calendar invites for about 300k people) and the rest. When something breaks, the reports land here first.
 
-Start with [triage](/kb/triage/dedupe) if you are new on the desk.
+For #4471, start with the [signed incident review](/kb/incidents/4471-review), which separates
+the exported classifier groups, disputed reports, and current public tracking.
+
+<Callout kind="warn">
+The <a href="/kb/triage/dedupe">triage guide</a> is under review: matching subjects and matching classifier buckets
+do not independently establish shared causation. Read its review notice before relying on the historical
+instructions. <a href="/kb/decisions/0002-evidence-based-triage">Decision 0002</a> proposes a replacement;
+it is not adopted, and decision 0001 remains the accepted record.
+</Callout>
+
+Document status is not product status. An accepted decision records approval of a policy; it does
+not establish that every report shares one cause or that a fix shipped. Review warnings and
+incident evidence still matter.
 
 ## Pages
 
@@ -23,3 +38,5 @@ Start with [triage](/kb/triage/dedupe) if you are new on the desk.
 
 Keep the words here and the logic in `src/lib`. A number that can be computed should be
 computed by a component, not typed into a paragraph.
+
+<RenderStamp {signature} />

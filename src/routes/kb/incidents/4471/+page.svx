@@ -1,28 +1,41 @@
 ---
 layout: runbook
-title: '#4471 · dates parse mm/dd in eu locales'
+title: '#4471 · original date report assessment (closed)'
 owner: support desk
-status: known
-reviewed: 2026-09-30
+status: closed
+reviewed: '2026-10-31'
+signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import CauseTable from '#lib/kb/CauseTable.svelte';
   import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
   import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-Since April, people have told us their bookings land on the wrong day: a month flipped. By
-4 October the desk had **412 reports**.
-
-**Merged as one issue.** The parser reads dates month first, and our tenants write the day
-first. The fix is queued.
-
-<Callout>
-Known. One issue, one fix queued.
+<Callout kind="warn">
+The historical single-fix explanation below did not hold. Start with the <a href="/kb/incidents/4471-review">signed review</a>.
+The desk closed #4471 on 5 October with two outcomes:
+<a href="https://github.com/keaglin/mega-dev-support-kb/issues/2">parser</a> fixed
+(<code>fix(dates): parse dd/mm for eu locales</code>) and
+<a href="https://github.com/keaglin/mega-dev-support-kb/issues/1">form hint</a> won't fix (booking-v3 form retired).
 </Callout>
 
-## What was merged
+## Historical assessment in the exported page
+
+The original page, reviewed on 30 September, described reports received since April and said:
+
+> **Merged as one issue.** The parser reads dates month first, and our tenants write the day
+> first. The fix is queued.
+>
+> Known. One issue, one fix queued.
+
+This is a record of the old assessment, not current confirmation of a single cause or a shipped fix.
+
+## What the export actually groups together
+
+These are exported routing groups, not current public issue state or independently confirmed causes.
 
 <CauseTable ticket={4471} />
 
@@ -30,7 +43,14 @@ Known. One issue, one fix queued.
 
 <QueueTimeline ticket={4471} />
 
-## Lessons
+## What this review establishes
 
-- A big ticket is mostly one bug reported many times. Merge early, count once.
-- Write the page while the queue is still in your head.
+- The classifier partitions the exported reports; it does not independently reproduce every reported failure.
+- Merge timestamps describe desk filing, not when the product first broke or recovered.
+- The review separates the original desk flags from the broader body-evidence gaps; neither establishes a new confirmed cause.
+
+The [triage guide](/kb/triage/dedupe) records the related policy question.
+[Decision 0002](/kb/decisions/0002-evidence-based-triage) is the proposed replacement, not an adopted rule.
+Accepted decision 0001 remains unchanged.
+
+<RenderStamp {signature} />

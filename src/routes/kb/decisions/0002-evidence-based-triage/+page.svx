@@ -1,0 +1,130 @@
+---
+layout: runbook
+title: '0002 · Separate report identity, routing and causal merges'
+owner: Kevon Eaglin
+status: proposed
+reviewed: '2026-10-29'
+signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+**Date:** 29 October 2026 · **Proposed by:** Kevon Eaglin, with GPT-6.1 Sol
+
+**Not adopted.** This proposes replacing the subject-only merge criterion in
+[decision 0001](/kb/decisions/0001-dedupe-by-subject) if accepted by the desk's policy owners.
+Decision 0001 remains the accepted record while this proposal is reviewed. This draft does not
+approve a replacement policy, establish a product fix, or authorize closing the #4471 issues.
+
+## Context
+
+The desk needs to move quickly without turning convenient grouping into a claim of shared cause.
+The [#4471 investigation](/kb/incidents/4471-review) exposes three different questions currently
+being treated as one: whether an export repeats a report, where a report should be investigated,
+and whether reports describe the same defect.
+
+The classifier is useful executable evidence of its own routing rule, not an independent production
+reproduction. It uses tenant locale, booking-form label and channel; it does not inspect the reported
+symptom, original entry, parsed result or timezone. Tenant directory records do not contain historical
+form versions. Their applicability to an older report must not be silently assumed when it matters.
+
+For example, `R-41416` and `R-41482` have the same tenant and the same body—“The reminder for
+1 November arrived for 11 January”—but different channels put them into different buckets.
+Conversely, `R-41202` describes 12 May versus 11 May while `R-41204` describes 10 December versus
+12 October; both take the same tenant/channel path and receive the same bucket. Neither comparison
+by itself proves which reports share a production cause.
+
+## Proposed decision
+
+If accepted, the desk would make the following distinctions.
+
+### Report identity: count source records, not matching wording
+
+Repeated rows with the same source report ID and identical content count once. Different report IDs
+remain separate reports even when their subjects or bodies match. Report counts are not automatically
+counts of distinct bookings, customers or incidents.
+
+Preserve the original IDs and evidence when linking or merging investigations. If records with the
+same ID conflict, retain and flag that conflict rather than silently choosing one version. The existing
+export helper is not claimed to implement this proposed conflict-handling rule.
+
+### Routing: group work provisionally
+
+Use the supplied classifier, relevant tenant/form/channel facts and the report's actual wording to
+choose an investigation route. Record which facts are known, which are snapshot assumptions, and
+which evidence is missing. Intake tags and browser locale are clues, not substitutes for the tenant's
+established input contract.
+
+A routing bucket may collect related-looking reports before their mechanism is confirmed. Label
+that grouping provisional; do not describe all its members as a diagnosed defect. Unknown or
+conflicting context remains explicitly unresolved rather than being forced into a confirmed cause.
+
+### Causal merges: cite evidence connecting the failure
+
+Subject equality, body equality and classifier-bucket equality are each insufficient on their own.
+Before merging investigation threads as one defect, record:
+
+- the expected and observed behavior, with relevant input and tenant/form/channel context;
+- the existing defect reproduction, processing trace or other mechanism-bearing evidence that
+  connects this report's failure to that defect;
+- any contrary evidence and why the shared explanation still fits.
+
+A report matching a documented reproduction and affected path need not receive a full independent
+root-cause investigation. A matching date pair alone is not that evidence: an incorrect parser and a
+misleading form hint can produce the same visible swap.
+
+When that connection is absent, link reports as a provisional investigation group instead of claiming
+a causal merge. Keep their IDs, counts and differing symptoms visible.
+
+### Uncertainty: keep an explicit disposition
+
+Record the unresolved question, a discriminating check and an investigation owner. For example,
+`R-41344` needs the relevant instant and timezone context before differing Lisbon/Toronto weekdays
+can be called erroneous. `R-41236` needs correlated booking and invite timestamps; its wording alone
+does not identify a date parser failure.
+
+A report without a complete date pair is not thereby a false positive, a new confirmed defect, or
+proof that an existing defect explains it. Do not erase that uncertainty by changing its bucket.
+
+Closing a product defect requires the evidence appropriate to that work and an explicit disposition
+for unresolved reports. Investigation completion, a manual date correction, a merged patch, a deployed
+fix and course acceptance are different outcomes; record which one actually occurred.
+
+## Alternatives and trade-off
+
+- **Keep subject-only merging:** fast and cheap, but the subject cannot establish identity or mechanism.
+- **Treat classifier equality as the merge decision:** repeatable, but converts the model's assumptions
+  into causal certainty and cannot resolve symptoms it does not inspect.
+- **Require a complete diagnosis for every report:** stronger evidence per report, but unnecessarily
+  repeats work when a documented reproduction and affected path already match.
+
+The proposal keeps fast provisional routing and reuse of established defect evidence, while requiring
+a recorded basis for a causal merge. It costs more reading and explicit uncertainty tracking than the
+old rule; it avoids treating that extra work as optional simply because the queue is busy.
+
+## Adoption and consequences
+
+This record remains **proposed** until the policy owners record acceptance. Only then should the desk
+replace its active merge instructions and link them to this decision. Preserve decision 0001 unchanged
+as the historical record; this draft does not mark it superseded in advance.
+
+Adoption would require the guide and its examples to distinguish identity, routing and causal merges,
+and to show what happens to unresolved evidence. The classifier and source report data must not be
+rewritten merely to make their output agree with a preferred narrative.
+
+No product implementation or policy adoption is included in this draft. The public
+[parser issue #2](https://github.com/keaglin/mega-dev-support-kb/issues/2) and
+[hint issue #1](https://github.com/keaglin/mega-dev-support-kb/issues/1) remain separate tracking;
+this proposal does not establish that either is fixed.
+
+## Sources
+
+- [Decision 0001](/kb/decisions/0001-dedupe-by-subject): accepted subject-only rule and its original trade-off.
+- `src/lib/data/reports-4471.json`: the report IDs and exact bodies cited above.
+- `src/lib/kb/causes.ts` and `src/lib/kb/locales.ts`: classifier inputs, grouping and tenant lookup.
+- `src/lib/data/tenants/*.json`: undated tenant locale/form snapshots.
+- `src/lib/data/desk-notes.json`: selected desk interpretations, not an exhaustive causal audit.
+
+<RenderStamp {signature} />

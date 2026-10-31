@@ -2,7 +2,7 @@
 
 ## Problem and scope
 
-The exported #4471 classifier assigns **379 unique reports** to `parser` across **11 tenants**, received **2026-04-01 through 2026-10-04**. The shared parser reads month first while each affected tenant writes day first. These are snapshot counts, not a claim about a later live queue.
+The exported #4471 classifier assigns **379 unique reports** to `parser` across **11 tenants**, received **2026-04-01 through 2026-10-04**. The supplied model describes a shared month-first parser receiving day-first tenant input. These are routing and snapshot claims, not independently confirmed causes or a claim about a later live queue.
 
 Source ZIP: `kb-export-267efc5e.zip`, SHA-256 `267efc5ea61aca6efaaca842160ac4d0377d56bcbf5123e61c604d6ae99597f2` (export dated 2026-10-04; fresh course download matched during review).
 
@@ -37,16 +37,29 @@ The classifier assigns these five desk-noted reports to parser. **They are inclu
 
 Request original input, expected/actual date, tenant/form version, timezone and booking/invite timestamps. Do not infer a timezone/DST defect or declare these resolved by the parser fix without reproduction. Their membership is exported classification, not independent confirmation of causation.
 
+### Broader body-evidence audit
+
+An independent body-only review, cross-checked against a deterministic date-pair audit, found **370** parser-bucket bodies with two complete day/month dates whose components are exchanged and **9** without that complete pattern. The nine include the five original desk flags above and four additional evidence gaps:
+
+| Report | What the body supplies |
+| --- | --- |
+| R-41290 | A request for a day-first setting, without an observed date pair. |
+| R-41417 | Wrong-day impact, without concrete dates. |
+| R-41514 | A words/phone-call workaround, without a concrete date pair. |
+| R-41615 | October versus January, without day numbers. |
+
+These four are **not new `oneDayMove` flags or newly confirmed defects**. All nine remain included in 379. Absence of a full swap-shaped pair does not establish that the route is wrong; presence of one does not prove its production cause. `issues/report-membership.json` keeps the body-audit membership separate from the unchanged desk-flag list.
+
 ## Intended correction and acceptance
 
 - Make the parser respect the tenant's explicit date convention or accept an unambiguous representation.
 - Verify both saved booking and generated invite preserve the intended date for ambiguous dates and day values greater than 12; retain correct month-first behavior where supported.
 - Exercise app/email traffic and booking-v2 forms, plus app/email for booking-v3 tenants; do not accidentally route the separate hint issue into this fix.
-- Reproduce the five disputed reports individually before counting them as fixed.
+- Give the original desk-flagged reports and broader body-evidence gaps an explicit disposition before treating them as fixed; do not silently promote routing membership to a confirmed diagnosis.
 - Record tested revision, paths and release evidence. A queued fix, merge timestamp, or this issue is not proof of deployment or recovery.
 
 ## Context
 
-The first reports arrived in April; the first recorded merge into #4471 is 2 July, when 184 reports were merged. The merge spike is not the date the defect began. The original incident's “one issue, one fix queued” prose conflicts with the computed cause table and must not be used to close the hint issue.
+The first reports arrived in April; the first recorded merge into #4471 is 2 July, when 184 reports were merged. The merge spike is not the date the defect began. The original incident's “one issue, one fix queued” account is not established by the report evidence; two classifier buckets do not independently prove two causes either.
 
-Reviewed by Kevon Eaglin with GPT-6.1 Sol, 2026-10-28. See signed review at `src/routes/kb/incidents/4471-review/+page.svx` and its rendered counterpart.
+Reviewed by Kevon Eaglin with GPT-6.1 Sol, 2026-10-29. See signed review at `src/routes/kb/incidents/4471-review/+page.svx` and its rendered counterpart. This revised local draft has not been applied automatically to public issue #2.

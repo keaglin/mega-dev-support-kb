@@ -3,12 +3,20 @@
   import notes from '#lib/data/desk-notes.json';
   import { causeOf, groupByCause, uniqueById, type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
+  import { hasSwappedDatePair } from '#lib/kb/report-evidence.js';
 
   const rows = reports as Report[];
   const unique = uniqueById(rows);
   const merged = unique.filter((r) => r.mergedInto === 4471);
   const groups = groupByCause(merged, tenantOf);
   const exceptions = merged.filter((r) => notes.oneDayMove.includes(r.id));
+  const bodyEvidence = new Map(merged.map((r) => [r.id, hasSwappedDatePair(r.body)]));
+  const outsidePair = merged.filter((r) => !bodyEvidence.get(r.id));
+  const additionalGaps = outsidePair.filter((r) => !notes.oneDayMove.includes(r.id));
+  const evidenceGroups = groups.map((g) => {
+    const paired = g.reports.filter((r) => bodyEvidence.get(r.id)).length;
+    return { cause: g.cause, paired, other: g.reports.length - paired };
+  });
   const firstReceived = Math.min(...merged.map((r) => Date.parse(r.receivedAt)));
   const firstMerged = Math.min(...merged.map((r) => Date.parse(r.mergedAt!)));
   const firstMergeDay = new Date(firstMerged).toISOString().slice(0, 10);
@@ -22,34 +30,40 @@
 <section aria-labelledby="accounting">
   <h2 id="accounting">What the count means</h2>
   <p>The export has {rows.length} rows. Overlapping export pages repeat {rows.length - unique.length} rows;
-    one report ID counts once. The cause table counts only unique reports merged into #4471.</p>
+    one report ID counts once. The routing table counts only unique reports merged into #4471.</p>
   <p>Tenant locale and booking-form version determine the exported classifier's result, not the reporter's
     browser locale, subject line, or intake tag. {mistagged} intake tags disagree with that result.
     The hint reports belong to <code>{hintTenants.join(', ')}</code>; those tenants' app/email reports still
     take the parser path.</p>
 </section>
 
-<section aria-labelledby="exceptions">
-  <h2 id="exceptions">One-day wording is an unresolved evidence gap</h2>
-  <p><code>desk-notes.json</code> flags {exceptions.length} reports as one-day moves. The classifier files all
-    of them under parser, and they remain inside its count: they are not additional reports.</p>
-  <table>
-    <thead><tr><th>report</th><th>tenant / channel</th><th>reported behavior</th><th>filed cause</th></tr></thead>
+<section aria-labelledby="report-evidence">
+  <h2 id="report-evidence">Reported wording and routing are separate evidence</h2>
+  <table class="body-matrix">
+    <thead><tr><th>classifier bucket</th><th>complete swap-shaped pair</th><th>other or insufficient wording</th></tr></thead>
     <tbody>
-      {#each exceptions as r (r.id)}
+      {#each evidenceGroups as g (g.cause)}
+        <tr><td><code>{g.cause}</code></td><td>{g.paired}</td><td>{g.other}</td></tr>
+      {/each}
+    </tbody>
+    <tfoot><tr><th>total report IDs</th><td>{merged.length - outsidePair.length}</td><td>{outsidePair.length}</td></tr></tfoot>
+  </table>
+  <h3>Reports outside the complete swap-pair description</h3>
+  <p>{outsidePair.length} report bodies lack that complete pair. The desk's original
+    <code>oneDayMove</code> list flags {exceptions.length} of them; {additionalGaps.length} are
+    additional body-evidence gaps, not additional desk flags. All remain inside the exported parser count.</p>
+  <table class="reports">
+    <thead><tr><th>report</th><th>reported behavior</th><th>original desk flag</th></tr></thead>
+    <tbody>
+      {#each outsidePair as r (r.id)}
         <tr>
           <td><code>{r.id}</code></td>
-          <td><code>{r.tenant}</code> / {r.channel}</td>
           <td>{r.body}</td>
-          <td><code>{causeOf(r, tenantOf(r))}</code></td>
+          <td>{notes.oneDayMove.includes(r.id) ? 'oneDayMove' : 'not flagged'}</td>
         </tr>
       {/each}
     </tbody>
   </table>
-  <p>A month/day swap does not establish why a meeting differs by one day between cities, why a whole month
-    is one day off, or why an invite precedes a booking. Request original input, expected and actual dates,
-    timezone, form/version, and invite timestamps before confirming these reports share the parser cause.
-    The export does not prove a timezone or daylight-saving defect, nor a separate third root cause.</p>
 </section>
 
 <section aria-labelledby="chronology">
@@ -57,13 +71,11 @@
   <p>The first report was received on {day(firstReceived)}. The first recorded merge was on {firstMergeDay},
     with {waiting} reports already received; {firstBatch} reports were merged that day. The initial queue
     spike below is a filing event, not evidence that the product first broke in July.</p>
-  <p>The source incident says “known” and “one fix queued,” but its review date precedes the latest reports.
-    Neither a merge timestamp nor a queued fix proves a fix shipped or that affected clients recovered.</p>
 </section>
 
 <style>
   td { vertical-align: top; }
   td:first-child { white-space: nowrap; }
-  td:nth-child(3) { min-width: 15rem; }
+  .reports td:nth-child(2) { min-width: 15rem; }
   table { display: block; overflow-x: auto; }
 </style>

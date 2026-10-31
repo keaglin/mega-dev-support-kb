@@ -21,14 +21,14 @@
         {#each CHANNELS as channel (channel)}<option>{channel}</option>{/each}
       </select>
       <input bind:value={side.subject} aria-label="subject" />
-      <code>{causeOf(side, tenantOf(side)) ?? 'no cause'}</code>
+      <code>{causeOf(side, tenantOf(side)) ?? 'unclassified'}</code>
     </fieldset>
   {/each}
-  <p class="verdict" class:dup={same(a, b)}>{same(a, b) ? 'same cause — merge' : 'different causes — keep apart'}</p>
+  <p class="verdict" class:dup={same(a, b)}>{same(a, b) ? 'matching classifier buckets — causation unverified' : 'no established bucket match — causation unverified'}</p>
 </div>
 
 <table>
-  <thead><tr><th>case</th><th>same subject</th><th>same cause</th></tr></thead>
+  <thead><tr><th>case</th><th>same subject</th><th>same classifier bucket</th></tr></thead>
   <tbody>
     {#each DEDUPE_CASES as c (c.why)}
       <tr>

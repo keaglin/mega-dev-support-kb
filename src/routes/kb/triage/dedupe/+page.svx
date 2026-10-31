@@ -2,36 +2,59 @@
 layout: runbook
 title: 'Triage: duplicate reports'
 owner: support desk
-status: accepted
-reviewed: 2024-06-11
+status: under-review
+reviewed: '2026-10-29'
+signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
   import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
+
+<Callout kind="warn">
+This guidance is under review. The <a href="/kb/incidents/4471-review">#4471 investigation</a> shows that
+matching subjects can fall into different classifier buckets, and different subjects can fall
+into the same bucket. The recorded rule below is historical guidance, not proof of shared causation.
+<a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> remains the accepted record.
+<a href="/kb/decisions/0002-evidence-based-triage">Decision 0002</a> proposes separating identity,
+routing and causal merges; it has not been adopted.
+</Callout>
 
 A busy morning brings hundreds of reports about the same thing. We keep one ticket per issue
 and merge every duplicate into it, so engineering sees one thread with a count.
 
-## The rule
+## Recorded rule and rationale from 2024
 
-A report is a duplicate when its **subject line matches** the subject of an open ticket
-([decision 0001](/kb/decisions/0001-dedupe-by-subject)):
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) recorded the following subject-only rule:
 
-1. lowercase the subject and strip punctuation;
-2. look for an open ticket with the same subject;
-3. found one: merge the report into it. None: open a new ticket.
+> A report is a duplicate when its **subject line matches** the subject of an open ticket.
+>
+> 1. lowercase the subject and strip punctuation;
+> 2. look for an open ticket with the same subject;
+> 3. found one: merge the report into it. None: open a new ticket.
+>
+> Matching on subject is fast and needs no reading. During an incident that matters more than
+> anything else.
 
-<Callout>
-Matching on subject is fast and needs no reading. During an incident that matters more than
-anything else.
-</Callout>
+The review notice qualifies this historical guidance; it does not silently replace the accepted decision.
 
-## Try it
+## Compare exported classifier buckets
+
+This compares the exported date classifier, not production reproductions or an approved merge policy.
+Matching bucket labels require corroboration of the reported failure mechanism.
 
 <DedupeExplorer />
 
-## When you are unsure
+## The recorded uncertainty rule also needs review
 
-Merge. Splitting a ticket later is cheaper than two engineers chasing the same bug.
+The old guidance said:
+
+> Merge. Splitting a ticket later is cheaper than two engineers chasing the same bug.
+
+The classifier illustration does not resolve that policy question. Equal bucket labels are not
+independent evidence that two reports share a demonstrated failure mechanism. The alternative in
+[decision 0002](/kb/decisions/0002-evidence-based-triage) remains proposed, not an approved instruction.
+
+<RenderStamp {signature} />

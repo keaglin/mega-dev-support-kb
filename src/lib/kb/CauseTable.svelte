@@ -19,12 +19,12 @@
 <p class="sum">
   <strong>{merged.length}</strong> reports merged into #{ticket} ·
   <strong>{groups.length}</strong>
-  {groups.length === 1 ? 'cause' : 'causes'}
+  {groups.length === 1 ? 'classifier group' : 'classifier groups'} in the export
 </p>
 
 <table>
   <thead>
-    <tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr>
+    <tr><th>classifier bucket</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>export placement</th></tr>
   </thead>
   <tbody>
     {#each groups as g (g.cause)}
@@ -34,7 +34,7 @@
         <td class="tags">{tags(g)}</td>
         <td>{g.tenants}</td>
         <td>{g.firstSeen} → {g.lastSeen}</td>
-        <td>{g.cause === owner ? `#${ticket}` : 'not this ticket — no ticket of its own'}</td>
+        <td>{g.cause === owner ? `dominant bucket in #${ticket}` : `other bucket merged into #${ticket}`}</td>
       </tr>
     {/each}
   </tbody>

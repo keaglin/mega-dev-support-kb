@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+		<link href="../../../_app/immutable/assets/runbook.BhhgOc_n.css" rel="stylesheet">
+		<link href="../../../_app/immutable/assets/RenderStamp.CMZ6TBbc.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/start.DaRLpHXk.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/jvqh7SqO.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DMqZUCXM.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/Ci7OOAza.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/6akQ3peL.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/app.46ExkPwA.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DsnmJJEf.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DJRBzSEc.js">
+		<link rel="modulepreload" href="../../../_app/immutable/nodes/0.CufH7djZ.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/D3egkzAN.js">
+		<link rel="modulepreload" href="../../../_app/immutable/nodes/4.ChaBcfjj.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/D-mjHkFR.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/BG42FU2y.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DnFryZR2.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/CuSo26OX.js"><!--[--><!--]--><title>0002 · Separate report identity, routing and causal merges · support kb</title>
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"><!--[--><!--[--><!----><!----><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">0002 · Separate report identity, routing and causal merges</h1> <p class="meta svelte-e2jw2j"><span>owner <b>Kevon Eaglin</b></span> <span class="status proposed svelte-e2jw2j">proposed</span> <span class="svelte-e2jw2j">reviewed 2026-10-29 · 2 days ago</span></p></header> <!--[!--><!--]--> <main><p><strong>Date:</strong> 29 October 2026 · <strong>Proposed by:</strong> Kevon Eaglin, with GPT-6.1 Sol</p> <p><strong>Not adopted.</strong> This proposes replacing the subject-only merge criterion in <a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a> if accepted by the desk’s policy owners.
+Decision 0001 remains the accepted record while this proposal is reviewed. This draft does not
+approve a replacement policy, establish a product fix, or authorize closing the #4471 issues.</p> <h2>Context</h2> <p>The desk needs to move quickly without turning convenient grouping into a claim of shared cause.
+The <a href="/kb/incidents/4471-review">#4471 investigation</a> exposes three different questions currently
+being treated as one: whether an export repeats a report, where a report should be investigated,
+and whether reports describe the same defect.</p> <p>The classifier is useful executable evidence of its own routing rule, not an independent production
+reproduction. It uses tenant locale, booking-form label and channel; it does not inspect the reported
+symptom, original entry, parsed result or timezone. Tenant directory records do not contain historical
+form versions. Their applicability to an older report must not be silently assumed when it matters.</p> <p>For example, <code>R-41416</code> and <code>R-41482</code> have the same tenant and the same body—“The reminder for
+1 November arrived for 11 January”—but different channels put them into different buckets.
+Conversely, <code>R-41202</code> describes 12 May versus 11 May while <code>R-41204</code> describes 10 December versus
+12 October; both take the same tenant/channel path and receive the same bucket. Neither comparison
+by itself proves which reports share a production cause.</p> <h2>Proposed decision</h2> <p>If accepted, the desk would make the following distinctions.</p> <h3>Report identity: count source records, not matching wording</h3> <p>Repeated rows with the same source report ID and identical content count once. Different report IDs
+remain separate reports even when their subjects or bodies match. Report counts are not automatically
+counts of distinct bookings, customers or incidents.</p> <p>Preserve the original IDs and evidence when linking or merging investigations. If records with the
+same ID conflict, retain and flag that conflict rather than silently choosing one version. The existing
+export helper is not claimed to implement this proposed conflict-handling rule.</p> <h3>Routing: group work provisionally</h3> <p>Use the supplied classifier, relevant tenant/form/channel facts and the report’s actual wording to
+choose an investigation route. Record which facts are known, which are snapshot assumptions, and
+which evidence is missing. Intake tags and browser locale are clues, not substitutes for the tenant’s
+established input contract.</p> <p>A routing bucket may collect related-looking reports before their mechanism is confirmed. Label
+that grouping provisional; do not describe all its members as a diagnosed defect. Unknown or
+conflicting context remains explicitly unresolved rather than being forced into a confirmed cause.</p> <h3>Causal merges: cite evidence connecting the failure</h3> <p>Subject equality, body equality and classifier-bucket equality are each insufficient on their own.
+Before merging investigation threads as one defect, record:</p> <ul><li>the expected and observed behavior, with relevant input and tenant/form/channel context;</li> <li>the existing defect reproduction, processing trace or other mechanism-bearing evidence that
+connects this report’s failure to that defect;</li> <li>any contrary evidence and why the shared explanation still fits.</li></ul> <p>A report matching a documented reproduction and affected path need not receive a full independent
+root-cause investigation. A matching date pair alone is not that evidence: an incorrect parser and a
+misleading form hint can produce the same visible swap.</p> <p>When that connection is absent, link reports as a provisional investigation group instead of claiming
+a causal merge. Keep their IDs, counts and differing symptoms visible.</p> <h3>Uncertainty: keep an explicit disposition</h3> <p>Record the unresolved question, a discriminating check and an investigation owner. For example, <code>R-41344</code> needs the relevant instant and timezone context before differing Lisbon/Toronto weekdays
+can be called erroneous. <code>R-41236</code> needs correlated booking and invite timestamps; its wording alone
+does not identify a date parser failure.</p> <p>A report without a complete date pair is not thereby a false positive, a new confirmed defect, or
+proof that an existing defect explains it. Do not erase that uncertainty by changing its bucket.</p> <p>Closing a product defect requires the evidence appropriate to that work and an explicit disposition
+for unresolved reports. Investigation completion, a manual date correction, a merged patch, a deployed
+fix and course acceptance are different outcomes; record which one actually occurred.</p> <h2>Alternatives and trade-off</h2> <ul><li><strong>Keep subject-only merging:</strong> fast and cheap, but the subject cannot establish identity or mechanism.</li> <li><strong>Treat classifier equality as the merge decision:</strong> repeatable, but converts the model’s assumptions
+into causal certainty and cannot resolve symptoms it does not inspect.</li> <li><strong>Require a complete diagnosis for every report:</strong> stronger evidence per report, but unnecessarily
+repeats work when a documented reproduction and affected path already match.</li></ul> <p>The proposal keeps fast provisional routing and reuse of established defect evidence, while requiring
+a recorded basis for a causal merge. It costs more reading and explicit uncertainty tracking than the
+old rule; it avoids treating that extra work as optional simply because the queue is busy.</p> <h2>Adoption and consequences</h2> <p>This record remains <strong>proposed</strong> until the policy owners record acceptance. Only then should the desk
+replace its active merge instructions and link them to this decision. Preserve decision 0001 unchanged
+as the historical record; this draft does not mark it superseded in advance.</p> <p>Adoption would require the guide and its examples to distinguish identity, routing and causal merges,
+and to show what happens to unresolved evidence. The classifier and source report data must not be
+rewritten merely to make their output agree with a preferred narrative.</p> <p>No product implementation or policy adoption is included in this draft. The public <a href="https://github.com/keaglin/mega-dev-support-kb/issues/2" rel="nofollow">parser issue #2</a> and <a href="https://github.com/keaglin/mega-dev-support-kb/issues/1" rel="nofollow">hint issue #1</a> remain separate tracking;
+this proposal does not establish that either is fixed.</p> <h2>Sources</h2> <ul><li><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a>: accepted subject-only rule and its original trade-off.</li> <li><code>src/lib/data/reports-4471.json</code>: the report IDs and exact bodies cited above.</li> <li><code>src/lib/kb/causes.ts</code> and <code>src/lib/kb/locales.ts</code>: classifier inputs, grouping and tenant lookup.</li> <li><code>src/lib/data/tenants/*.json</code>: undated tenant locale/form snapshots.</li> <li><code>src/lib/data/desk-notes.json</code>: selected desk interpretations, not an exhaustive causal audit.</li></ul> <!--[--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-D4DP-EKF1</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_4rapzp = {
+						base: new URL("../../..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../../../_app/immutable/entry/start.DaRLpHXk.js"),
+						import("../../../_app/immutable/entry/app.46ExkPwA.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 4],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

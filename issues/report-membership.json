@@ -457,5 +457,25 @@
       "R-41620"
     ]
   },
-  "publication": "pending student manual action"
+  "bodyEvidence": {
+    "method": "Exactly two English day/month descriptions with exchanged components; body-only wording evidence, not production parsing or causal diagnosis",
+    "swapPairReports": 403,
+    "otherReports": 9,
+    "otherReportIds": [
+      "R-41202", "R-41209", "R-41236", "R-41290", "R-41344",
+      "R-41417", "R-41514", "R-41615", "R-41620"
+    ],
+    "additionalToDeskFlags": ["R-41290", "R-41417", "R-41514", "R-41615"],
+    "routingComparison": [
+      { "bucket": "parser", "swapPairReports": 370, "otherReports": 9 },
+      { "bucket": "hint", "swapPairReports": 33, "otherReports": 0 }
+    ],
+    "limitation": "No complete pair does not establish a false positive or a new defect; a matching pair does not establish a production cause"
+  },
+  "publication": "published by student; ticket stage accepted; Challenge unsolved",
+  "tracking": {
+    "repo": "https://github.com/keaglin/mega-dev-support-kb",
+    "parser": "https://github.com/keaglin/mega-dev-support-kb/issues/2",
+    "hint": "https://github.com/keaglin/mega-dev-support-kb/issues/1"
+  }
 }

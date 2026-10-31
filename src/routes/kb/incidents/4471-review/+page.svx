@@ -1,9 +1,9 @@
 ---
 layout: runbook
-title: '#4471 · two date failures, not one queued fix'
+title: '#4471 · report evidence and provisional routing'
 owner: Kevon Eaglin
 status: investigated
-reviewed: '2026-10-28'
+reviewed: '2026-10-31'
 signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
@@ -16,73 +16,105 @@ signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-The [original incident](/kb/incidents/4471) merges reports under a single month-first parser explanation.
-Its own executable views distinguish two causes. This review preserves that historical page and the
-accepted decision; it does not turn their “known” status into proof that a fix shipped.
+The [original incident](/kb/incidents/4471) recorded a single month-first parser explanation.
+Its executable views distinguish routing groups, not independently proven production causes.
+The operational pages retain the historical assessment with explicit qualifications; accepted
+decision 0001 remains unchanged. Neither this review nor a ticket's existence proves a product fix.
 
 <Callout kind="warn">
-Treat this as a review of the supplied export, not a live product reproduction. Its source files were
-exported on 4 October. A fresh download matched the supplied ZIP before this review; that does not
-establish that the real desk has had no later activity.
+This reviews the supplied 4 October export as fixed evidence, not a live product reproduction.
+The materials contain a KB classification model, not the production booking application.
+The desk's later engineering update, below, is the only newer input this review uses.
 </Callout>
 
-## Split by cause, not by the words in the subject
+## Desk outcome
+
+The desk's engineering update reports #4471 **closed on 5 October**, with one outcome per problem:
+
+| problem | public ticket | desk outcome |
+| --- | --- | --- |
+| shared month-first parser (379 reports) | [#2](https://github.com/keaglin/mega-dev-support-kb/issues/2) | **fixed**: `fix(dates): parse dd/mm for eu locales` |
+| booking-v3 month-first hint (33 reports) | [#1](https://github.com/keaglin/mega-dev-support-kb/issues/1) | **won't fix**: booking-v3 form retired |
+
+These outcomes come from the desk's update, not from this KB. The export contains no product code,
+so this review records them as reported and does not reproduce the fix. The two outcomes differ,
+which confirms #4471 held two problems, not one.
+
+## Keep routing separate from causal hypotheses
+
+Placement in this table describes the exported ticket, not current public issue state or confirmed causation.
 
 <CauseTable ticket={4471} />
 
-### Parser: day-first input reaches a month-first shared parser
+### Parser hypothesis in the supplied model
 
-The shared parser reads month first, although the tenant writes day first. For example, report
-`R-41203` describes 2 December becoming 12 February. In the supplied model this is the parser path:
-`02/12/2026` is intended as 2 December but read as 12 February.
+The model describes a shared month-first parser receiving a day-first tenant's input. Report
+`R-41203` describes 2 December becoming 12 February, which is compatible with that explanation.
+The report does not supply the original numeric entry or a processing trace that proves it.
 
-Use the tenant's date convention or an unambiguous date representation at the parser interface.
-Check both app/email traffic and the booking form whose hint already agrees with the tenant.
-A parser change alone does not correct the separate form-hint defect.
+### Hint hypothesis in the supplied model
 
-### Hint: booking-v3 tells day-first tenants to enter month first
+The model describes booking-v3 displaying `MM/DD/YYYY` while its form reads the tenant's
+day-first convention. Report `R-41241` describes 6 August becoming 8 June, which is compatible
+with that path if the directory's form facts applied when the report arrived.
+The report does not capture the actual hint or entry, and the directory has no form-version history.
 
-The booking-v3 hint prints `MM/DD/YYYY`; its form reads the value in the tenant's day-first convention.
-A person following that hint can therefore submit the opposite date even when the form parser follows
-the locale. Report `R-41241` describes 6 August becoming 8 June: following the hint gives `08/06/2026`,
-which the German tenant's form reads as 8 June.
+These mechanisms can produce the same visible swap. `R-41416` and `R-41482`, from the same tenant,
+contain identical wording but receive different buckets because their channels differ. The
+reported date pair alone cannot decide between the model's explanations.
 
-Make the hint agree with the form's actual parsing convention. Keep this ticket separate from the
-shared parser work: form channel plus booking-v3 is the discriminator, not the browser locale.
-These examples are scenarios implied by the exported cause model, not executions of product code.
+## Read the report descriptions independently
+
+The body audit recognizes exactly two English day/month descriptions with exchanged numeric
+components. It infers no year, raw input format or production cause. A body without that complete
+pair is not thereby a false positive or a new defect. The figures below are computed from the
+unchanged report records, separately from the routing rule.
 
 <Review4471 />
 
 <QueueTimeline ticket={4471} />
 
-## The triage rule disagrees with the working comparison
+The **exported page's original 30 September review date** precedes the latest reports in that
+export. The current incident page's review date records our later KB correction, not an earlier
+product diagnosis. Neither a merge timestamp nor a queued fix proves shipment or recovery.
 
-[Accepted decision 0001](/kb/decisions/0001-dedupe-by-subject) and the
-[triage prose](/kb/triage/dedupe) merge by normalized subject alone and say uncertainty should be merged.
-Both were last reviewed in June 2024; the shared page frame flags them as stale. The comparison below
-already uses tenant, locale, form and channel to compare causes instead.
+The desk's original flags and the body-audit gaps are different evidence sets. A month/day swap
+does not establish why a report describes a one-day discrepancy or an invite preceding a booking;
+different local weekdays can also be legitimate views of one instant. These reports need an
+explicit disposition, not a blanket causal claim.
+
+## Policy status and classifier limits
+
+[Accepted decision 0001](/kb/decisions/0001-dedupe-by-subject) records the subject-only policy
+approved in June 2024. The [triage page](/kb/triage/dedupe) now marks its recorded merge instructions
+as under review and links this investigation. This factual correction does not approve a replacement
+policy. The comparison below uses tenant, locale, form and channel to illustrate classifier buckets,
+not to establish production causation or authorize a merge.
+
+This compares the exported date classifier, not production reproductions or an approved merge policy.
+Matching bucket labels require corroboration of the reported failure mechanism.
 
 <DedupeExplorer />
 
-The concrete counterexamples matter: Alder form versus app has the same subject but different causes;
-Copper versus Morrow form traffic has the same subject/channel but different causes; Pale versus Alder
-form traffic can have different subjects yet the same hint cause. An unknown tenant has no known cause,
-so identical wording is not enough to merge it.
+The concrete counterexamples matter: Alder form versus app has the same subject but different buckets;
+Copper versus Morrow form traffic has the same subject/channel but different buckets; Pale versus Alder
+form traffic can have different subjects yet the same hint bucket. An unknown tenant is unclassified.
+Even equal non-null buckets need corroborated failure evidence before they establish shared causation.
 
-Proposed replacement practice: resolve tenant and path, compare the demonstrated failure mechanism,
-and merge only matching causes. Keep uncertain reports for investigation. Do not silently rewrite the
-accepted historical decision; a policy owner must accept a superseding record before this recommendation
-becomes the desk's approved policy.
+[Proposed decision 0002](/kb/decisions/0002-evidence-based-triage) separates report identity,
+provisional routing, causal merges and unresolved evidence. It is not adopted and does not
+silently replace accepted decision 0001. Matching a documented failure mechanism is its proposed
+basis for causal merges; equal subjects or equal buckets alone are not enough.
 
 ## Desk action and verification limits
 
-- Track parser and hint separately, preserving unique report IDs and the disputed one-day wording.
-- The corresponding local issue drafts are `issues/parser.md` and `issues/hint.md`. GitHub publication
-  is pending the student's manual action; no public ticket or shipped fix is claimed here.
-- Before release acceptance, reproduce each input path in the actual product and confirm the hint,
-  parser and generated invite agree on the intended date. Recheck the one-day reports individually.
-- Refresh the desk export before submission and reconcile additions or changed tenant facts. Do not
-  carry these snapshot counts forward as a claim about a newer export.
+- Preserve the existing routing membership while distinguishing the original desk flags from all body-evidence gaps.
+- Public tracking is [parser issue #2](https://github.com/keaglin/mega-dev-support-kb/issues/2)
+  and [hint issue #1](https://github.com/keaglin/mega-dev-support-kb/issues/1). Per the desk's update,
+  #2 closes as fixed and #1 closes as won't fix because the booking-v3 form is retired.
+- The nine body-evidence gaps stay inside the parser count; the desk's fix does not establish
+  that each of them was a month/day swap.
+- The supplied 4 October export remains the bounded evidence set; the desk's update is the only later input used.
 
 ## Primary sources
 
@@ -92,6 +124,7 @@ All file paths are relative to this KB's repository root.
 - `src/lib/data/tenants/*.json` and `src/lib/kb/locales.ts`: tenant locale and booking-form version.
 - `src/lib/kb/causes.ts`: day-first detection, cause classification, unique-ID counting and grouping.
 - `src/lib/data/desk-notes.json`: disputed one-day wording, not a new confirmed cause.
+- `src/lib/kb/report-evidence.js`: the bounded English body-pair predicate, independent of `causeOf`.
 - `src/lib/kb/dedupe-cases.ts` and `src/lib/kb/DedupeExplorer.svelte`: executable triage contrasts.
 - `src/lib/kb/QueueTimeline.svelte`: received-versus-merged chronology.
 - `src/lib/layouts/runbook.svelte` and `src/lib/kb/staleness.ts`: review age and staleness display.
