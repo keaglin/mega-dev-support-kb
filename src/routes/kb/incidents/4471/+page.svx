@@ -4,14 +4,12 @@ title: '#4471 · original date report assessment (closed)'
 owner: support desk
 status: closed
 reviewed: '2026-10-31'
-signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import CauseTable from '#lib/kb/CauseTable.svelte';
   import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
   import Callout from '#lib/kb/Callout.svelte';
-  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 <Callout kind="warn">
@@ -52,5 +50,3 @@ These are exported routing groups, not current public issue state or independent
 The [triage guide](/kb/triage/dedupe) records the related policy question.
 [Decision 0002](/kb/decisions/0002-evidence-based-triage) is the proposed replacement, not an adopted rule.
 Accepted decision 0001 remains unchanged.
-
-<RenderStamp {signature} />

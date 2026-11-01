@@ -93,7 +93,8 @@ product acceptance criteria; the revised local parser draft has not been applied
 automatically to the public issue. `issues/report-membership.json` contains both
 the disjoint routing ID lists and a separate body-evidence audit; its original
 `oneDayMove` list remains the desk's provenance, not an exhaustive uncertainty list.
-The KB's author signature produces desk ref `DR-D4DP-EKF1` in the rendered page.
+The pages this review added (the #4471 review and decision 0002) carry the author's
+course signature, which produces desk ref `DR-BSGD-BKHA`. Desk-owned pages stay unsigned.
 
 The course accepted the ticket stage. The desk's engineering update then reported
 #4471 closed on 5 October: parser fixed (`fix(dates): parse dd/mm for eu locales`),

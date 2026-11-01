@@ -4,13 +4,11 @@ title: 'Triage: duplicate reports'
 owner: support desk
 status: under-review
 reviewed: '2026-10-29'
-signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
   import Callout from '#lib/kb/Callout.svelte';
-  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 <Callout kind="warn">
@@ -56,5 +54,3 @@ The old guidance said:
 The classifier illustration does not resolve that policy question. Equal bucket labels are not
 independent evidence that two reports share a demonstrated failure mechanism. The alternative in
 [decision 0002](/kb/decisions/0002-evidence-based-triage) remains proposed, not an approved instruction.
-
-<RenderStamp {signature} />

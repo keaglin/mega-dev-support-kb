@@ -2,7 +2,7 @@
   "snapshot": "kb-export-267efc5e.zip",
   "sha256": "267efc5ea61aca6efaaca842160ac4d0377d56bcbf5123e61c604d6ae99597f2",
   "reviewed": "2026-10-28",
-  "signature": "Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28",
+  "signature": "v1.eyJzdWIiOiI0NjAiLCJhdWQiOiJjaGFsbGVuZ2U6d2hhdC1pdC1zaG93cyIsImlhdCI6MTc5MzQ4MjI5NywiZXhwIjoxNzkzNTY4Njk3fQ.kg7hz6xNu1sHHpH6NVq15Ku2I3kHVS-N0U6zRwxmORI",
   "method": "uniqueById, filter mergedInto === 4471, groupByCause with tenant locale/form facts; intakeTag is not a cause",
   "exportedRows": 427,
   "uniqueReports": 412,

@@ -10,18 +10,18 @@
 		<link href="../../../_app/immutable/assets/DedupeExplorer.C3mwiGDj.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/RenderStamp.CMZ6TBbc.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/6.Bt6e7BMP.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/start.DaRLpHXk.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/jvqh7SqO.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/start.Dc8Ed_Yv.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/eJtSO93v.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DMqZUCXM.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/Ci7OOAza.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/6akQ3peL.js">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/app.46ExkPwA.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/app.7kdrXQyC.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DJRBzSEc.js">
 		<link rel="modulepreload" href="../../../_app/immutable/nodes/0.CufH7djZ.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/D3egkzAN.js">
-		<link rel="modulepreload" href="../../../_app/immutable/nodes/6.-iOBVNqf.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/4tkIF7rn.js">
+		<link rel="modulepreload" href="../../../_app/immutable/nodes/6.BKamzzG_.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DuFKrU8a.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/BG42FU2y.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DnFryZR2.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/B3pZnkFl.js">
@@ -31,7 +31,7 @@
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/CuSo26OX.js"><!--[--><!--]--><title>#4471 · report evidence and provisional routing · support kb</title>
   </head>
   <body data-sveltekit-preload-data="hover">
-    <div style="display: contents"><!--[--><!--[--><!----><!----><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">#4471 · report evidence and provisional routing</h1> <p class="meta svelte-e2jw2j"><span>owner <b>Kevon Eaglin</b></span> <span class="status investigated svelte-e2jw2j">investigated</span> <span class="svelte-e2jw2j">reviewed 2026-10-31 · 0 days ago</span></p></header> <!--[!--><!--]--> <main><p>The <a href="/kb/incidents/4471">original incident</a> recorded a single month-first parser explanation.
+    <div style="display: contents"><!--[--><!--[--><!----><!----><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">#4471 · report evidence and provisional routing</h1> <p class="meta svelte-e2jw2j"><span>owner <b>Kevon Eaglin</b></span> <span class="status investigated svelte-e2jw2j">investigated</span> <span class="svelte-e2jw2j">reviewed 2026-10-31 · 1 days ago</span></p></header> <!--[!--><!--]--> <main><p>The <a href="/kb/incidents/4471">original incident</a> recorded a single month-first parser explanation.
 Its executable views distinguish routing groups, not independently proven production causes.
 The operational pages retain the historical assessment with explicit qualifications; accepted
 decision 0001 remains unchanged. Neither this review nor a ticket’s existence proves a product fix.</p> <aside class="warn svelte-17bri61"><!---->This reviews the supplied 4 October export as fixed evidence, not a live product reproduction.
@@ -72,19 +72,19 @@ provisional routing, causal merges and unresolved evidence. It is not adopted an
 silently replace accepted decision 0001. Matching a documented failure mechanism is its proposed
 basis for causal merges; equal subjects or equal buckets alone are not enough.</p> <h2>Desk action and verification limits</h2> <ul><li>Preserve the existing routing membership while distinguishing the original desk flags from all body-evidence gaps.</li> <li>Public tracking is <a href="https://github.com/keaglin/mega-dev-support-kb/issues/2" rel="nofollow">parser issue #2</a> and <a href="https://github.com/keaglin/mega-dev-support-kb/issues/1" rel="nofollow">hint issue #1</a>. Per the desk’s update,
 #2 closes as fixed and #1 closes as won’t fix because the booking-v3 form is retired.</li> <li>The nine body-evidence gaps stay inside the parser count; the desk’s fix does not establish
-that each of them was a month/day swap.</li> <li>The supplied 4 October export remains the bounded evidence set; the desk’s update is the only later input used.</li></ul> <h2>Primary sources</h2> <p>All file paths are relative to this KB’s repository root.</p> <ul><li><code>src/lib/data/reports-4471.json</code>: original reports, receipt timestamps, merge timestamps and IDs.</li> <li><code>src/lib/data/tenants/*.json</code> and <code>src/lib/kb/locales.ts</code>: tenant locale and booking-form version.</li> <li><code>src/lib/kb/causes.ts</code>: day-first detection, cause classification, unique-ID counting and grouping.</li> <li><code>src/lib/data/desk-notes.json</code>: disputed one-day wording, not a new confirmed cause.</li> <li><code>src/lib/kb/report-evidence.js</code>: the bounded English body-pair predicate, independent of <code>causeOf</code>.</li> <li><code>src/lib/kb/dedupe-cases.ts</code> and <code>src/lib/kb/DedupeExplorer.svelte</code>: executable triage contrasts.</li> <li><code>src/lib/kb/QueueTimeline.svelte</code>: received-versus-merged chronology.</li> <li><code>src/lib/layouts/runbook.svelte</code> and <code>src/lib/kb/staleness.ts</code>: review age and staleness display.</li></ul> <!--[--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-D4DP-EKF1</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+that each of them was a month/day swap.</li> <li>The supplied 4 October export remains the bounded evidence set; the desk’s update is the only later input used.</li></ul> <h2>Primary sources</h2> <p>All file paths are relative to this KB’s repository root.</p> <ul><li><code>src/lib/data/reports-4471.json</code>: original reports, receipt timestamps, merge timestamps and IDs.</li> <li><code>src/lib/data/tenants/*.json</code> and <code>src/lib/kb/locales.ts</code>: tenant locale and booking-form version.</li> <li><code>src/lib/kb/causes.ts</code>: day-first detection, cause classification, unique-ID counting and grouping.</li> <li><code>src/lib/data/desk-notes.json</code>: disputed one-day wording, not a new confirmed cause.</li> <li><code>src/lib/kb/report-evidence.js</code>: the bounded English body-pair predicate, independent of <code>causeOf</code>.</li> <li><code>src/lib/kb/dedupe-cases.ts</code> and <code>src/lib/kb/DedupeExplorer.svelte</code>: executable triage contrasts.</li> <li><code>src/lib/kb/QueueTimeline.svelte</code>: received-versus-merged chronology.</li> <li><code>src/lib/layouts/runbook.svelte</code> and <code>src/lib/kb/staleness.ts</code>: review age and staleness display.</li></ul> <!--[--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-BSGD-BKHA</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_4rapzp = {
+					__sveltekit_1199trp = {
 						base: new URL("../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../../../_app/immutable/entry/start.DaRLpHXk.js"),
-						import("../../../_app/immutable/entry/app.46ExkPwA.js")
+						import("../../../_app/immutable/entry/start.Dc8Ed_Yv.js"),
+						import("../../../_app/immutable/entry/app.7kdrXQyC.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6],

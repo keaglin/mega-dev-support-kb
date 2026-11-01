@@ -4,13 +4,11 @@ title: Support knowledge base
 owner: support desk
 status: living
 reviewed: '2026-10-29'
-signature: 'Kevon Eaglin · GPT-6.1 Sol · S01E03 · 2026-10-28'
 ---
 
 <script>
   import KbIndex from '#lib/kb/KbIndex.svelte';
   import Callout from '#lib/kb/Callout.svelte';
-  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 What the support desk knows, kept next to the code that knows it. One desk, every product:
@@ -38,5 +36,3 @@ incident evidence still matter.
 
 Keep the words here and the logic in `src/lib`. A number that can be computed should be
 computed by a component, not typed into a paragraph.
-
-<RenderStamp {signature} />

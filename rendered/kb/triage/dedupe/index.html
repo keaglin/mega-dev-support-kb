@@ -7,46 +7,44 @@
 		<link href="../../../_app/immutable/assets/runbook.BhhgOc_n.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/Callout.yLErXQDM.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/DedupeExplorer.C3mwiGDj.css" rel="stylesheet">
-		<link href="../../../_app/immutable/assets/RenderStamp.CMZ6TBbc.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/start.DaRLpHXk.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/jvqh7SqO.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/start.Dc8Ed_Yv.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/eJtSO93v.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DMqZUCXM.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/Ci7OOAza.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/6akQ3peL.js">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/app.46ExkPwA.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/app.7kdrXQyC.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DJRBzSEc.js">
 		<link rel="modulepreload" href="../../../_app/immutable/nodes/0.CufH7djZ.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/D3egkzAN.js">
-		<link rel="modulepreload" href="../../../_app/immutable/nodes/7.1IFzZXRQ.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/DJddbLY0.js">
+		<link rel="modulepreload" href="../../../_app/immutable/nodes/7.C4xWk_jB.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/BijqfqCS.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/BG42FU2y.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DnFryZR2.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DGKXQ4Ep.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/DPZqKEET.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/CuSo26OX.js"><!--[--><!--]--><title>Triage: duplicate reports · support kb</title>
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DPZqKEET.js"><!--[--><!--]--><title>Triage: duplicate reports · support kb</title>
   </head>
   <body data-sveltekit-preload-data="hover">
-    <div style="display: contents"><!--[--><!--[--><!----><!----><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">Triage: duplicate reports</h1> <p class="meta svelte-e2jw2j"><span>owner <b>support desk</b></span> <span class="status under-review svelte-e2jw2j">under-review</span> <span class="svelte-e2jw2j">reviewed 2026-10-29 · 2 days ago</span></p></header> <!--[!--><!--]--> <main><aside class="warn svelte-17bri61"><!---->This guidance is under review. The <a href="/kb/incidents/4471-review">#4471 investigation</a> shows that
+    <div style="display: contents"><!--[--><!--[--><!----><!----><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">Triage: duplicate reports</h1> <p class="meta svelte-e2jw2j"><span>owner <b>support desk</b></span> <span class="status under-review svelte-e2jw2j">under-review</span> <span class="svelte-e2jw2j">reviewed 2026-10-29 · 3 days ago</span></p></header> <!--[!--><!--]--> <main><aside class="warn svelte-17bri61"><!---->This guidance is under review. The <a href="/kb/incidents/4471-review">#4471 investigation</a> shows that
 matching subjects can fall into different classifier buckets, and different subjects can fall
 into the same bucket. The recorded rule below is historical guidance, not proof of shared causation. <a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> remains the accepted record. <a href="/kb/decisions/0002-evidence-based-triage">Decision 0002</a> proposes separating identity,
 routing and causal merges; it has not been adopted.<!----></aside><!----> <p>A busy morning brings hundreds of reports about the same thing. We keep one ticket per issue
 and merge every duplicate into it, so engineering sees one thread with a count.</p> <h2>Recorded rule and rationale from 2024</h2> <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> recorded the following subject-only rule:</p> <blockquote><p>A report is a duplicate when its <strong>subject line matches</strong> the subject of an open ticket.</p> <ol><li>lowercase the subject and strip punctuation;</li> <li>look for an open ticket with the same subject;</li> <li>found one: merge the report into it. None: open a new ticket.</li></ol> <p>Matching on subject is fast and needs no reading. During an incident that matters more than
 anything else.</p></blockquote> <p>The review notice qualifies this historical guidance; it does not silently replace the accepted decision.</p> <h2>Compare exported classifier buckets</h2> <p>This compares the exported date classifier, not production reproductions or an approved merge policy.
 Matching bucket labels require corroboration of the reported failure mechanism.</p> <div class="try svelte-gq0h2h"><!--[--><fieldset class="svelte-gq0h2h"><legend>report A</legend> <select aria-label="tenant"><!--[--><option selected>alder.physio</option><option>copper.studio</option><option>harbour.dental</option><option>kettle.books</option><option>lantern.row</option><option>long.table</option><option>morrow.tax</option><option>nine.lanterns</option><option>pale.harbour</option><option>ridge.clinic</option><option>stone.and.sons</option><!--]--></select> <select aria-label="channel"><!--[--><option>app</option><option>email</option><option selected>form</option><!--]--></select> <input value="Booking on the wrong date" aria-label="subject"/> <code>hint</code></fieldset><fieldset class="svelte-gq0h2h"><legend>report B</legend> <select aria-label="tenant"><!--[--><option>alder.physio</option><option>copper.studio</option><option>harbour.dental</option><option selected>kettle.books</option><option>lantern.row</option><option>long.table</option><option>morrow.tax</option><option>nine.lanterns</option><option>pale.harbour</option><option>ridge.clinic</option><option>stone.and.sons</option><!--]--></select> <select aria-label="channel"><!--[--><option>app</option><option>email</option><option selected>form</option><!--]--></select> <input value="Booking on the wrong date" aria-label="subject"/> <code>parser</code></fieldset><!--]--> <p class="verdict svelte-gq0h2h">no established bucket match — causation unverified</p></div> <table><thead><tr><th>case</th><th>same subject</th><th>same classifier bucket</th></tr></thead><tbody><!--[--><tr><td>app vs email, same tenant</td><td>no</td><td class="svelte-gq0h2h dup">yes</td></tr><tr><td>same subject, same tenant, different channel</td><td>yes</td><td class="svelte-gq0h2h">no</td></tr><tr><td>same subject, same channel, different tenant</td><td>yes</td><td class="svelte-gq0h2h">no</td></tr><tr><td>different subject, same way in</td><td>no</td><td class="svelte-gq0h2h dup">yes</td></tr><tr><td>no tenant on file</td><td>yes</td><td class="svelte-gq0h2h">no</td></tr><!--]--></tbody></table><!----> <h2>The recorded uncertainty rule also needs review</h2> <p>The old guidance said:</p> <blockquote><p>Merge. Splitting a ticket later is cheaper than two engineers chasing the same bug.</p></blockquote> <p>The classifier illustration does not resolve that policy question. Equal bucket labels are not
-independent evidence that two reports share a demonstrated failure mechanism. The alternative in <a href="/kb/decisions/0002-evidence-based-triage">decision 0002</a> remains proposed, not an approved instruction.</p> <!--[--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-D4DP-EKF1</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+independent evidence that two reports share a demonstrated failure mechanism. The alternative in <a href="/kb/decisions/0002-evidence-based-triage">decision 0002</a> remains proposed, not an approved instruction.</p><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_4rapzp = {
+					__sveltekit_1199trp = {
 						base: new URL("../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../../../_app/immutable/entry/start.DaRLpHXk.js"),
-						import("../../../_app/immutable/entry/app.46ExkPwA.js")
+						import("../../../_app/immutable/entry/start.Dc8Ed_Yv.js"),
+						import("../../../_app/immutable/entry/app.7kdrXQyC.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 7],
